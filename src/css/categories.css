@@ -53,3 +53,39 @@
     border-color: #ff6b0a;
   }
 }
+
+/* === Load More Button === */
+.load-more {
+  /* Розміщення по центру */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 24px; /* Відступ зверху від списку продуктів */
+
+  /* Стилі для вигляду кнопки */
+  padding: 12px 24px;
+  font-family: inherit; /* Успадковує шрифт від body */
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #ff6b0a;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+
+  /* Плавний перехід для ефектів */
+  transition: all 0.3s ease;
+}
+
+/* Ефект при наведенні курсора */
+.load-more:hover,
+.load-more:focus {
+  background-color: #e05a00;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 107, 10, 0.3);
+}
+
+/* Ховаємо кнопку, якщо вона не потрібна (логіка в JS) */
+.load-more.hidden {
+  display: none;
+}

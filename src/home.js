@@ -42,6 +42,7 @@ async function initializeHomePage() {
       refs.loadMoreBtn.style.display = 'block';
     }
   } catch (error) {
+    //console.error('Помилка після завантаження даних:', error);
     iziToast.error({ title: 'Error', message: 'Failed to load initial data.' });
   } finally {
     hideLoader();
