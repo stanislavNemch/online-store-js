@@ -45,10 +45,14 @@ export default defineConfig(({ command }) => {
       postcss: {
         plugins: [
           SortCss(),
-          isBuild &&
-            purgecss.default({
-              content: ['./src/**/*.html', './src/js/**/*.js'],
-            }),
+          // isBuild &&
+          //   purgecss.default({
+          //     content: ['./src/**/*.html', './src/js/**/*.js'],
+          //     safelist: {
+          //       standard: ['is-active', 'is-visible'],
+          //       deep: [/swiper/, /modal/],
+          //     },
+          //   }),
         ].filter(Boolean),
       },
     },
