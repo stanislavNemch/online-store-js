@@ -1,3 +1,4 @@
+//Логіка сторінки Cart
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { getProductById } from './js/products-api.js';
@@ -19,12 +20,21 @@ import {
   hideLoader,
 } from './js/helpers.js';
 
-function updateCartSummary(items, total) {
-  if (refs.cartTotalItems) refs.cartTotalItems.textContent = items;
-  if (refs.cartTotalPrice)
+/**
+ * Обновляет блок "Order Summary" на странице корзины.
+ */
+function updateCartSummary(itemsCount, total) {
+  if (refs.cartTotalItems) {
+    refs.cartTotalItems.textContent = itemsCount;
+  }
+  if (refs.cartTotalPrice) {
     refs.cartTotalPrice.textContent = `$${total.toFixed(2)}`;
+  }
 }
 
+/**
+ * Загружает и отображает товары из корзины.
+ */
 async function loadCartProducts() {
   showLoader();
   const cartIds = loadFromStorage(STORAGE_KEYS.CART) || [];
@@ -35,7 +45,7 @@ async function loadCartProducts() {
       refs.productsList.innerHTML =
         '<li class="cart-empty-message">Your cart is empty.</li>';
     }
-    updateCartSummary(0, 0);
+    updateCartSummary(0, 0); // Обновляем сумму, если корзина пуста
     hideLoader();
     return;
   }
@@ -44,22 +54,27 @@ async function loadCartProducts() {
     const productPromises = cartIds.map(id => getProductById(id));
     const products = await Promise.all(productPromises);
     renderProducts(products);
+
     const totalItems = products.length;
     const totalPrice = products.reduce(
       (sum, product) => sum + product.price,
       0
     );
-    updateCartSummary(totalItems, totalPrice);
+    updateCartSummary(totalItems, totalPrice); // Обновляем сумму после загрузки товаров
   } catch (error) {
     iziToast.error({
       title: 'Error',
       message: 'Failed to load cart products.',
     });
+    updateCartSummary(0, 0); // В случае ошибки сбрасываем сумму
   } finally {
     hideLoader();
   }
 }
 
+/**
+ * Обработчик для кнопки "Купить".
+ */
 function onBuyBtnClick() {
   const cartIds = loadFromStorage(STORAGE_KEYS.CART) || [];
   if (cartIds.length > 0) {
@@ -69,8 +84,8 @@ function onBuyBtnClick() {
       position: 'topRight',
     });
     saveToStorage(STORAGE_KEYS.CART, []);
-    loadCartProducts();
-    updateCounters();
+    loadCartProducts(); // Перезагружаем корзину (она станет пустой)
+    updateCounters(); // Обновляем счетчик в хедере
   } else {
     iziToast.info({
       title: 'Info',
@@ -80,6 +95,9 @@ function onBuyBtnClick() {
   }
 }
 
+/**
+ * Инициализация страницы корзины.
+ */
 function initializeCartPage() {
   applyTheme();
   updateCounters();

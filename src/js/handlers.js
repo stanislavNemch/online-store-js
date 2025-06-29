@@ -25,8 +25,12 @@ let currentSearchQuery = '';
 export function updateCounters() {
   const cart = loadFromStorage(STORAGE_KEYS.CART) || [];
   const wishlist = loadFromStorage(STORAGE_KEYS.WISHLIST) || [];
-  if (refs.cartCount) refs.cartCount.textContent = cart.length;
-  if (refs.wishlistCount) refs.wishlistCount.textContent = wishlist.length;
+  if (refs.cartCountBtn) {
+    refs.cartCountBtn.dataset.cartCount = cart.length;
+  }
+  if (refs.wishlistCountBtn) {
+    refs.wishlistCountBtn.dataset.wishlistCount = wishlist.length;
+  }
 }
 
 function updateModalButtons(productId) {
