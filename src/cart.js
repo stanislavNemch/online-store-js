@@ -21,9 +21,10 @@ import {
 } from './js/helpers.js';
 
 /**
- * Обновляет блок "Order Summary" на странице корзины.
+ * Оновлює блок "Order Summary" на сторінці кошика.
  */
 function updateCartSummary(itemsCount, total) {
+  // Ніяких змін тут не потрібно, оскільки refs.js тепер надає правильні посилання
   if (refs.cartTotalItems) {
     refs.cartTotalItems.textContent = itemsCount;
   }
@@ -33,7 +34,7 @@ function updateCartSummary(itemsCount, total) {
 }
 
 /**
- * Загружает и отображает товары из корзины.
+ * Завантажує та відображає товари з кошика.
  */
 async function loadCartProducts() {
   showLoader();
@@ -45,7 +46,7 @@ async function loadCartProducts() {
       refs.productsList.innerHTML =
         '<li class="cart-empty-message">Your cart is empty.</li>';
     }
-    updateCartSummary(0, 0); // Обновляем сумму, если корзина пуста
+    updateCartSummary(0, 0); // Оновлюємо суму, якщо кошик порожній
     hideLoader();
     return;
   }
@@ -60,20 +61,20 @@ async function loadCartProducts() {
       (sum, product) => sum + product.price,
       0
     );
-    updateCartSummary(totalItems, totalPrice); // Обновляем сумму после загрузки товаров
+    updateCartSummary(totalItems, totalPrice); // Оновлюємо суму після завантаження товарів
   } catch (error) {
     iziToast.error({
       title: 'Error',
       message: 'Failed to load cart products.',
     });
-    updateCartSummary(0, 0); // В случае ошибки сбрасываем сумму
+    updateCartSummary(0, 0); // У разі помилки скидаємо суму
   } finally {
     hideLoader();
   }
 }
 
 /**
- * Обработчик для кнопки "Купить".
+ * Обробник для кнопки "Купити".
  */
 function onBuyBtnClick() {
   const cartIds = loadFromStorage(STORAGE_KEYS.CART) || [];
@@ -84,8 +85,8 @@ function onBuyBtnClick() {
       position: 'topRight',
     });
     saveToStorage(STORAGE_KEYS.CART, []);
-    loadCartProducts(); // Перезагружаем корзину (она станет пустой)
-    updateCounters(); // Обновляем счетчик в хедере
+    loadCartProducts(); // Перезавантажуємо кошик (він стане порожнім)
+    updateCounters(); // Оновлюємо лічильник у хедері
   } else {
     iziToast.info({
       title: 'Info',
@@ -96,7 +97,7 @@ function onBuyBtnClick() {
 }
 
 /**
- * Инициализация страницы корзины.
+ * Ініціалізація сторінки кошика.
  */
 function initializeCartPage() {
   applyTheme();
