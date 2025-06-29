@@ -1,7 +1,8 @@
 //Логіка сторінки Wishlist
-
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 import { getProductById } from './js/products-api.js';
-import { renderProducts } from './js/render-functions.js';
+import { renderProducts, clearProducts } from './js/render-function.js';
 import { refs } from './js/refs.js';
 import {
   onProductClick,
@@ -9,22 +10,21 @@ import {
   updateCounters,
 } from './js/handlers.js';
 import { loadFromStorage } from './js/storage.js';
-import { STORAGE_KEYS } from './js/constants.js'; // <-- ИЗМЕНЕНИЕ: Импортируем объект STORAGE_KEYS
-import { showLoader, hideLoader, applyTheme } from './js/helpers.js';
-import iziToast from 'izitoast';
-import 'izitoast/dist/css/iziToast.min.css';
+import { STORAGE_KEYS } from './js/constants.js';
+import { applyTheme, showLoader, hideLoader } from './js/helpers.js';
 
+/**
+ * Загружает и отображает товары из списка желаний
+ */
 async function loadWishlistProducts() {
   showLoader();
-  const wishlistIds = loadFromStorage(STORAGE_KEYS.WISHLIST) || []; // <-- ИЗМЕНЕНИЕ: Используем STORAGE_KEYS.WISHLIST
+  const wishlistIds = loadFromStorage(STORAGE_KEYS.WISHLIST) || [];
 
-  if (refs.wishlistProductsList) {
-    refs.wishlistProductsList.innerHTML = '';
-  }
+  clearProducts();
 
   if (wishlistIds.length === 0) {
-    if (refs.wishlistProductsList) {
-      refs.wishlistProductsList.innerHTML =
+    if (refs.productsList) {
+      refs.productsList.innerHTML =
         '<li class="wishlist-empty-message">Your wishlist is empty.</li>';
     }
     hideLoader();
@@ -34,11 +34,8 @@ async function loadWishlistProducts() {
   try {
     const productPromises = wishlistIds.map(id => getProductById(id));
     const products = await Promise.all(productPromises);
-    if (refs.wishlistProductsList) {
-      renderProducts(products); // Эта функция рендерит в .products, нужна адаптация
-    }
+    renderProducts(products);
   } catch (error) {
-    console.error(error);
     iziToast.error({
       title: 'Error',
       message: 'Failed to load wishlist products.',
@@ -48,15 +45,18 @@ async function loadWishlistProducts() {
   }
 }
 
-// Инициализация
-applyTheme();
-loadWishlistProducts();
-updateCounters();
+// --- Инициализация страницы ---
+function initializeWishlistPage() {
+  applyTheme();
+  loadWishlistProducts();
+  updateCounters();
 
-// Слушатели событий
-if (refs.wishlistProductsList) {
-  refs.wishlistProductsList.addEventListener('click', onProductClick);
+  if (refs.productsList) {
+    refs.productsList.addEventListener('click', onProductClick);
+  }
+  if (refs.modalProduct) {
+    refs.modalProduct.addEventListener('click', onModalButtonClick);
+  }
 }
-if (refs.modalProduct) {
-  refs.modalProduct.addEventListener('click', onModalButtonClick);
-}
+
+document.addEventListener('DOMContentLoaded', initializeWishlistPage);
