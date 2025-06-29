@@ -5,7 +5,7 @@ import { renderProducts, clearProducts } from './js/render-function.js';
 import { refs } from './js/refs.js';
 import {
   onProductClick,
-  onModalButtonClick,
+  onModalActionsClick,
   updateCounters,
 } from './js/handlers.js';
 import { loadFromStorage, saveToStorage } from './js/storage.js';
@@ -87,8 +87,8 @@ function initializeCartPage() {
 
   if (refs.productsList)
     refs.productsList.addEventListener('click', onProductClick);
-  if (refs.modalProduct)
-    refs.modalProduct.addEventListener('click', onModalButtonClick);
+  if (refs.modalActions)
+    refs.modalActions.addEventListener('click', onModalActionsClick);
   if (refs.cartBuyBtn) refs.cartBuyBtn.addEventListener('click', onBuyBtnClick);
   if (refs.themeSwitcher)
     refs.themeSwitcher.addEventListener('click', toggleTheme);

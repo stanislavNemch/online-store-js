@@ -24,6 +24,7 @@ export const refs = {
   modal: document.querySelector('.modal'),
   modalProduct: document.querySelector('.modal-product'),
   modalCloseBtn: document.querySelector('.modal__close-btn'),
+  modalActions: document.querySelector('.modal-product__actions'),
 
   // --- Страница Cart ---
   cartTotalItems: document.querySelector('.cart-summary__items-value'),

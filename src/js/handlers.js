@@ -33,11 +33,11 @@ function updateModalButtons(productId) {
   const numericProductId = Number(productId);
   const cart = loadFromStorage(STORAGE_KEYS.CART) || [];
   const wishlist = loadFromStorage(STORAGE_KEYS.WISHLIST) || [];
-  const addToCartBtn = refs.modalProduct.querySelector(
-    '.modal-product__add-to-cart-btn'
-  );
-  const addToWishlistBtn = refs.modalProduct.querySelector(
-    '.modal-product__add-to-wishlist-btn'
+
+  // Знаходимо кнопки не в динамічному контенті, а в самому модальному вікні
+  const addToCartBtn = refs.modal.querySelector('.modal-product__btn--cart');
+  const addToWishlistBtn = refs.modal.querySelector(
+    '.modal-product__btn--wishlist'
   );
 
   if (!addToCartBtn || !addToWishlistBtn) return;
@@ -83,8 +83,8 @@ export async function onProductClick(event) {
   showLoader();
   try {
     const product = await getProductById(productId);
-    renderProductModal(product);
-    updateModalButtons(productId);
+    renderProductModal(product); // Рендеримо тільки дані продукту
+    updateModalButtons(productId); // Оновлюємо існуючі кнопки
     openModal();
   } catch (error) {
     iziToast.error({
@@ -96,16 +96,16 @@ export async function onProductClick(event) {
   }
 }
 
-export function onModalButtonClick(event) {
-  const button = event.target;
-  if (!button.classList.contains('modal-product__btn')) return;
+export function onModalActionsClick(event) {
+  const button = event.target.closest('.modal-product__btn');
+  if (!button) return;
 
   const productId = Number(button.dataset.id);
   if (!productId) return;
 
-  if (button.classList.contains('modal-product__add-to-cart-btn')) {
+  if (button.classList.contains('modal-product__btn--cart')) {
     toggleProductInStorage(STORAGE_KEYS.CART, productId, button, 'Cart');
-  } else if (button.classList.contains('modal-product__add-to-wishlist-btn')) {
+  } else if (button.classList.contains('modal-product__btn--wishlist')) {
     toggleProductInStorage(
       STORAGE_KEYS.WISHLIST,
       productId,
@@ -169,11 +169,9 @@ export async function onSearchFormSubmit(event) {
   currentPage = 1;
   currentSearchQuery = query;
   currentCategory = '';
-  // --- ИСПРАВЛЕНИЕ НАЧАЛО ---
   if (refs.loadMoreBtn) {
     refs.loadMoreBtn.style.display = 'block';
   }
-  // --- ИСПРАВЛЕНИЕ КОНЕЦ ---
   if (refs.notFoundMessage)
     refs.notFoundMessage.classList.remove('not-found--visible');
   showLoader();
@@ -183,19 +181,15 @@ export async function onSearchFormSubmit(event) {
     if (data.products.length === 0) {
       if (refs.notFoundMessage)
         refs.notFoundMessage.classList.add('not-found--visible');
-      // --- ИСПРАВЛЕНИЕ НАЧАЛО ---
       if (refs.loadMoreBtn) {
         refs.loadMoreBtn.style.display = 'none';
       }
-      // --- ИСПРАВЛЕНИЕ КОНЕЦ ---
     } else {
       renderProducts(data.products);
       if (data.total <= currentPage * 12) {
-        // --- ИСПРАВЛЕНИЕ НАЧАЛО ---
         if (refs.loadMoreBtn) {
           refs.loadMoreBtn.style.display = 'none';
         }
-        // --- ИСПРАВЛЕНИЕ КОНЕЦ ---
       }
     }
   } catch (error) {

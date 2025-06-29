@@ -1,9 +1,8 @@
 //Функцію для створення, рендеру або видалення розмітки
-
 import { refs } from './refs.js';
 
 /**
- * Очищает список продуктов в DOM.
+ * Очищує список продуктів у DOM.
  */
 export function clearProducts() {
   if (refs.productsList) {
@@ -12,8 +11,8 @@ export function clearProducts() {
 }
 
 /**
- * Рендерит список категорий.
- * @param {string[]} categories Массив названий категорий
+ * Рендерить список категорій.
+ * @param {string[]} categories Масив назв категорій
  */
 export function renderCategories(categories) {
   if (!refs.categoriesList) return;
@@ -34,8 +33,8 @@ export function renderCategories(categories) {
 }
 
 /**
- * Рендерит список продуктов.
- * @param {object[]} products Массив объектов продуктов
+ * Рендерить список продуктів.
+ * @param {object[]} products Масив об'єктів продуктів
  */
 export function renderProducts(products) {
   if (!refs.productsList) return;
@@ -58,8 +57,8 @@ export function renderProducts(products) {
 }
 
 /**
- * Рендерит разметку для одного продукта в модальном окне.
- * @param {object} product Объект продукта
+ * Рендерить розмітку для одного продукту в модальному вікні.
+ * @param {object} product Об'єкт продукту
  */
 export function renderProductModal(product) {
   if (!refs.modalProduct) return;
@@ -81,11 +80,8 @@ export function renderProductModal(product) {
             <p class="modal-product__shipping-information"><b>Shipping:</b> ${shippingInformation}</p>
             <p class="modal-product__return-policy"><b>Return Policy:</b> ${returnPolicy}</p>
         </div>
-        <div class="modal-product__buttons">
-            <button class="modal-product__btn modal-product__add-to-wishlist-btn" type="button">Add to Wishlist</button>
-            <button class="modal-product__btn modal-product__add-to-cart-btn" type="button">Add to Cart</button>
-        </div>
       </div>
     `;
+  // Заповнюємо контейнер .modal-product
   refs.modalProduct.innerHTML = markup;
 }

@@ -5,7 +5,7 @@ import { renderCategories, renderProducts } from './js/render-function.js';
 import { refs } from './js/refs.js';
 import {
   onProductClick,
-  onModalButtonClick,
+  onModalActionsClick,
   updateCounters,
   onCategoryClick,
   onSearchFormSubmit,
@@ -55,8 +55,8 @@ if (refs.productsList)
   refs.productsList.addEventListener('click', onProductClick);
 if (refs.categoriesList)
   refs.categoriesList.addEventListener('click', onCategoryClick);
-if (refs.modalProduct)
-  refs.modalProduct.addEventListener('click', onModalButtonClick);
+if (refs.modalActions)
+  refs.modalActions.addEventListener('click', onModalActionsClick);
 if (refs.searchForm)
   refs.searchForm.addEventListener('submit', onSearchFormSubmit);
 if (refs.loadMoreBtn)
