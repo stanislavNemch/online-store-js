@@ -9,8 +9,8 @@ export const refs = {
   searchForm: document.querySelector('.search-form'),
   searchInput: document.querySelector('.search-form__input'),
   searchClearBtn: document.querySelector('.search-form__btn-clear'),
-  wishlistCountBtn: document.querySelector('.nav__btn--wishlist'),
-  cartCountBtn: document.querySelector('.nav__btn--cart'),
+  wishlistCount: document.querySelector('[data-wishlist-count]'),
+  cartCount: document.querySelector('[data-cart-count]'),
 
   // --- Основной контент (ul.products используется на всех страницах) ---
   productsList: document.querySelector('ul.products'),

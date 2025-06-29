@@ -25,11 +25,13 @@ let currentSearchQuery = '';
 export function updateCounters() {
   const cart = loadFromStorage(STORAGE_KEYS.CART) || [];
   const wishlist = loadFromStorage(STORAGE_KEYS.WISHLIST) || [];
-  if (refs.cartCountBtn) {
-    refs.cartCountBtn.dataset.cartCount = cart.length;
+  if (refs.cartCount) {
+    refs.cartCount.textContent = cart.length;
+    refs.cartCount.dataset.cartCount = cart.length;
   }
-  if (refs.wishlistCountBtn) {
-    refs.wishlistCountBtn.dataset.wishlistCount = wishlist.length;
+  if (refs.wishlistCount) {
+    refs.wishlistCount.textContent = wishlist.length;
+    refs.wishlistCount.dataset.wishlistCount = wishlist.length;
   }
 }
 
