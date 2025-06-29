@@ -11,15 +11,18 @@ import {
 } from './js/handlers.js';
 import { loadFromStorage } from './js/storage.js';
 import { STORAGE_KEYS } from './js/constants.js';
-import { applyTheme, showLoader, hideLoader } from './js/helpers.js';
+import {
+  applyTheme,
+  toggleTheme,
+  handleScroll,
+  scrollToTop,
+  showLoader,
+  hideLoader,
+} from './js/helpers.js';
 
-/**
- * Загружает и отображает товары из списка желаний
- */
 async function loadWishlistProducts() {
   showLoader();
   const wishlistIds = loadFromStorage(STORAGE_KEYS.WISHLIST) || [];
-
   clearProducts();
 
   if (wishlistIds.length === 0) {
@@ -45,17 +48,20 @@ async function loadWishlistProducts() {
   }
 }
 
-// --- Инициализация страницы ---
 function initializeWishlistPage() {
   applyTheme();
-  loadWishlistProducts();
   updateCounters();
+  loadWishlistProducts();
 
-  if (refs.productsList) {
+  if (refs.productsList)
     refs.productsList.addEventListener('click', onProductClick);
-  }
-  if (refs.modalProduct) {
+  if (refs.modalProduct)
     refs.modalProduct.addEventListener('click', onModalButtonClick);
+  if (refs.themeSwitcher)
+    refs.themeSwitcher.addEventListener('click', toggleTheme);
+  if (refs.scrollUpBtn) {
+    window.addEventListener('scroll', handleScroll);
+    refs.scrollUpBtn.addEventListener('click', scrollToTop);
   }
 }
 

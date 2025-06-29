@@ -1,7 +1,7 @@
 //Допоміжні функції
 import { refs } from './refs.js';
 import { saveToStorage, loadFromStorage } from './storage.js';
-import { STORAGE_KEYS } from './constants.js'; // <-- ИЗМЕНЕНИЕ: Импортируем объект STORAGE_KEYS
+import { STORAGE_KEYS } from './constants.js';
 
 // --- Лоадер ---
 export function showLoader() {
@@ -18,10 +18,12 @@ export function hideLoader() {
 
 // --- Кнопка "Вверх" ---
 export function handleScroll() {
-  if (window.scrollY > 300) {
-    refs.scrollUpBtn.classList.add('show');
-  } else {
-    refs.scrollUpBtn.classList.remove('show');
+  if (refs.scrollUpBtn) {
+    if (window.scrollY > 300) {
+      refs.scrollUpBtn.classList.add('show');
+    } else {
+      refs.scrollUpBtn.classList.remove('show');
+    }
   }
 }
 
@@ -36,11 +38,11 @@ export function scrollToTop() {
 export function toggleTheme() {
   document.body.classList.toggle('dark-theme');
   const isDark = document.body.classList.contains('dark-theme');
-  saveToStorage(STORAGE_KEYS.THEME, isDark ? 'dark' : 'light'); // <-- ИЗМЕНЕНИЕ
+  saveToStorage(STORAGE_KEYS.THEME, isDark ? 'dark' : 'light');
 }
 
 export function applyTheme() {
-  const savedTheme = loadFromStorage(STORAGE_KEYS.THEME); // <-- ИЗМЕНЕНИЕ
+  const savedTheme = loadFromStorage(STORAGE_KEYS.THEME);
   if (savedTheme === 'dark') {
     document.body.classList.add('dark-theme');
   } else {

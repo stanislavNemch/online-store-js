@@ -10,35 +10,30 @@ import {
 } from './js/handlers.js';
 import { loadFromStorage, saveToStorage } from './js/storage.js';
 import { STORAGE_KEYS } from './js/constants.js';
-import { applyTheme, showLoader, hideLoader } from './js/helpers.js';
+import {
+  applyTheme,
+  toggleTheme,
+  handleScroll,
+  scrollToTop,
+  showLoader,
+  hideLoader,
+} from './js/helpers.js';
 
-/**
- * Обновляет итоговую информацию в корзине (кол-во, сумма)
- * @param {number} items
- * @param {number} total
- */
 function updateCartSummary(items, total) {
-  if (refs.cartTotalItems) {
-    refs.cartTotalItems.textContent = items;
-  }
-  if (refs.cartTotalPrice) {
+  if (refs.cartTotalItems) refs.cartTotalItems.textContent = items;
+  if (refs.cartTotalPrice)
     refs.cartTotalPrice.textContent = `$${total.toFixed(2)}`;
-  }
 }
 
-/**
- * Загружает и отображает товары из корзины
- */
 async function loadCartProducts() {
   showLoader();
   const cartIds = loadFromStorage(STORAGE_KEYS.CART) || [];
-
   clearProducts();
 
   if (cartIds.length === 0) {
     if (refs.productsList) {
       refs.productsList.innerHTML =
-        '<li class="cart-empty-message">Your cart is empty. Go to the main page to add products.</li>';
+        '<li class="cart-empty-message">Your cart is empty.</li>';
     }
     updateCartSummary(0, 0);
     hideLoader();
@@ -48,9 +43,7 @@ async function loadCartProducts() {
   try {
     const productPromises = cartIds.map(id => getProductById(id));
     const products = await Promise.all(productPromises);
-
     renderProducts(products);
-
     const totalItems = products.length;
     const totalPrice = products.reduce(
       (sum, product) => sum + product.price,
@@ -67,9 +60,6 @@ async function loadCartProducts() {
   }
 }
 
-/**
- * Обработчик кнопки "Купить"
- */
 function onBuyBtnClick() {
   const cartIds = loadFromStorage(STORAGE_KEYS.CART) || [];
   if (cartIds.length > 0) {
@@ -78,7 +68,6 @@ function onBuyBtnClick() {
       message: 'Products purchased successfully!',
       position: 'topRight',
     });
-    // Очищаем корзину после успешной "покупки"
     saveToStorage(STORAGE_KEYS.CART, []);
     loadCartProducts();
     updateCounters();
@@ -91,20 +80,21 @@ function onBuyBtnClick() {
   }
 }
 
-// --- Инициализация страницы ---
 function initializeCartPage() {
   applyTheme();
-  loadCartProducts();
   updateCounters();
+  loadCartProducts();
 
-  if (refs.productsList) {
+  if (refs.productsList)
     refs.productsList.addEventListener('click', onProductClick);
-  }
-  if (refs.modalProduct) {
+  if (refs.modalProduct)
     refs.modalProduct.addEventListener('click', onModalButtonClick);
-  }
-  if (refs.cartBuyBtn) {
-    refs.cartBuyBtn.addEventListener('click', onBuyBtnClick);
+  if (refs.cartBuyBtn) refs.cartBuyBtn.addEventListener('click', onBuyBtnClick);
+  if (refs.themeSwitcher)
+    refs.themeSwitcher.addEventListener('click', toggleTheme);
+  if (refs.scrollUpBtn) {
+    window.addEventListener('scroll', handleScroll);
+    refs.scrollUpBtn.addEventListener('click', scrollToTop);
   }
 }
 

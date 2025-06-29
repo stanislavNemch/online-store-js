@@ -1,4 +1,5 @@
 //Логіка сторінки Home
+
 import { getProductCategories, getProducts } from './js/products-api.js';
 import { renderCategories, renderProducts } from './js/render-function.js';
 import { refs } from './js/refs.js';
@@ -7,6 +8,8 @@ import {
   onModalButtonClick,
   updateCounters,
   onCategoryClick,
+  onSearchFormSubmit,
+  onLoadMoreClick,
 } from './js/handlers.js';
 import {
   applyTheme,
@@ -19,16 +22,12 @@ import {
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-/**
- * Инициализация главной страницы
- */
 async function initializeHomePage() {
   applyTheme();
   updateCounters();
   showLoader();
 
   try {
-    // Параллельная загрузка категорий и продуктов
     const [categories, productsData] = await Promise.all([
       getProductCategories(),
       getProducts(1),
@@ -37,7 +36,6 @@ async function initializeHomePage() {
     renderCategories(['All', ...categories]);
     renderProducts(productsData.products);
 
-    // Проверка, нужно ли показывать кнопку "Load More"
     if (productsData.total <= 12) {
       refs.loadMoreBtn.style.display = 'none';
     } else {
@@ -50,33 +48,22 @@ async function initializeHomePage() {
   }
 }
 
-// --- Слушатели событий ---
 document.addEventListener('DOMContentLoaded', initializeHomePage);
 
-// Делегирование событий для списков
-if (refs.productsList) {
+// --- Слушатели событий ---
+if (refs.productsList)
   refs.productsList.addEventListener('click', onProductClick);
-}
-if (refs.categoriesList) {
+if (refs.categoriesList)
   refs.categoriesList.addEventListener('click', onCategoryClick);
-}
-
-// Слушатели для модального окна и UI элементов
-if (refs.modalProduct) {
+if (refs.modalProduct)
   refs.modalProduct.addEventListener('click', onModalButtonClick);
-}
-if (refs.themeSwitcher) {
+if (refs.searchForm)
+  refs.searchForm.addEventListener('submit', onSearchFormSubmit);
+if (refs.loadMoreBtn)
+  refs.loadMoreBtn.addEventListener('click', onLoadMoreClick);
+if (refs.themeSwitcher)
   refs.themeSwitcher.addEventListener('click', toggleTheme);
-}
 if (refs.scrollUpBtn) {
   window.addEventListener('scroll', handleScroll);
   refs.scrollUpBtn.addEventListener('click', scrollToTop);
 }
-
-refs.searchInput.addEventListener('input', () => {
-  if (refs.searchInput.value.trim() !== '') {
-    refs.searchClearBtn.style.display = 'block';
-  } else {
-    refs.searchClearBtn.style.display = 'none';
-  }
-});
