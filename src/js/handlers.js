@@ -150,17 +150,11 @@ export async function onCategoryClick(event) {
       if (refs.loadMoreBtn) refs.loadMoreBtn.classList.remove('hidden');
     } else {
       renderProducts(data.products);
-      const totalRendered = currentPage * 12;
+      const totalRendered = (currentPage - 1) * 12 + data.products.length;
       if (totalRendered < data.total) {
         if (refs.loadMoreBtn) refs.loadMoreBtn.classList.remove('hidden');
-      }
-      if (data.total <= currentPage * 12) {
-        if (refs.loadMoreBtn) refs.loadMoreBtn.classList.remove('hidden');
-        iziToast.info({
-          title: 'Info',
-          message: "You've reached the end of the product list.",
-          position: 'topRight',
-        });
+      } else {
+        if (refs.loadMoreBtn) refs.loadMoreBtn.classList.add('hidden');
       }
     }
   } catch (error) {
@@ -196,14 +190,11 @@ export async function onSearchFormSubmit(event) {
       }
     } else {
       renderProducts(data.products);
-      const totalRendered = currentPage * 12;
+      const totalRendered = (currentPage - 1) * 12 + data.products.length;
       if (totalRendered < data.total) {
         if (refs.loadMoreBtn) refs.loadMoreBtn.classList.remove('hidden');
-      }
-      if (data.total <= currentPage * 12) {
-        if (refs.loadMoreBtn) {
-          refs.loadMoreBtn.classList.remove('hidden');
-        }
+      } else {
+        if (refs.loadMoreBtn) refs.loadMoreBtn.classList.add('hidden');
       }
     }
   } catch (error) {
