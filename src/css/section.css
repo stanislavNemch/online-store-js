@@ -4,14 +4,13 @@
 
 /* HTML: <div class="loader"></div> */
 .loader {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  display: hidden;
-  width: 50px;
+  position: fixed; /* Фіксована позиція для перекриття всього контенту */
+  top: 50%;
+  left: 50%;
+  width: 75px;
   aspect-ratio: 1;
   border-radius: 50%;
+  z-index: 999; /* Перекриває весь інший контент */
   background: radial-gradient(farthest-side, #ffa516 94%, #0000) top/8px 8px
       no-repeat,
     conic-gradient(#0000 30%, #ffa516);
@@ -22,4 +21,12 @@
   100% {
     transform: rotate(1turn);
   }
+}
+
+/* --- Клас для приховування лоадера --- */
+/* Цей клас додається/видаляється за допомогою JavaScript */
+.loader.hidden {
+  opacity: 0; /* Робимо повністю прозорим */
+  visibility: hidden; /* Ховаємо елемент і робимо неклікабельним */
+  pointer-events: none; /* Ігноруємо будь-які кліки */
 }

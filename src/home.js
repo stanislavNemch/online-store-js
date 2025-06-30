@@ -36,10 +36,8 @@ async function initializeHomePage() {
     renderCategories(['All', ...categories]);
     renderProducts(productsData.products);
 
-    if (productsData.total <= 12) {
-      refs.loadMoreBtn.style.display = 'none';
-    } else {
-      refs.loadMoreBtn.style.display = 'block';
+    if (productsData.total > 12) {
+      if (refs.loadMoreBtn) refs.loadMoreBtn.classList.remove('hidden');
     }
   } catch (error) {
     //console.error('Помилка після завантаження даних:', error);

@@ -8,6 +8,9 @@ export function showLoader() {
   if (refs.loader) {
     refs.loader.classList.remove('hidden');
   }
+  if (refs.loadMoreBtn) {
+    refs.loadMoreBtn.classList.add('hidden');
+  }
 }
 
 export function hideLoader() {

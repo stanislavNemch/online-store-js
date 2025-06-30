@@ -134,7 +134,7 @@ export async function onCategoryClick(event) {
   currentPage = 1;
   currentCategory = category;
   currentSearchQuery = '';
-  if (refs.loadMoreBtn) refs.loadMoreBtn.style.display = 'block';
+  if (refs.loadMoreBtn) refs.loadMoreBtn.classList.remove('hidden');
   if (refs.notFoundMessage)
     refs.notFoundMessage.classList.remove('not-found--visible');
   showLoader();
@@ -147,11 +147,15 @@ export async function onCategoryClick(event) {
     if (data.products.length === 0) {
       if (refs.notFoundMessage)
         refs.notFoundMessage.classList.add('not-found--visible');
-      if (refs.loadMoreBtn) refs.loadMoreBtn.style.display = 'none';
+      if (refs.loadMoreBtn) refs.loadMoreBtn.classList.remove('hidden');
     } else {
       renderProducts(data.products);
+      const totalRendered = currentPage * 12;
+      if (totalRendered < data.total) {
+        if (refs.loadMoreBtn) refs.loadMoreBtn.classList.remove('hidden');
+      }
       if (data.total <= currentPage * 12) {
-        if (refs.loadMoreBtn) refs.loadMoreBtn.style.display = 'none';
+        if (refs.loadMoreBtn) refs.loadMoreBtn.classList.remove('hidden');
         iziToast.info({
           title: 'Info',
           message: "You've reached the end of the product list.",
@@ -176,7 +180,7 @@ export async function onSearchFormSubmit(event) {
   currentSearchQuery = query;
   currentCategory = '';
   if (refs.loadMoreBtn) {
-    refs.loadMoreBtn.style.display = 'block';
+    refs.loadMoreBtn.classList.remove('hidden');
   }
   if (refs.notFoundMessage)
     refs.notFoundMessage.classList.remove('not-found--visible');
@@ -188,13 +192,17 @@ export async function onSearchFormSubmit(event) {
       if (refs.notFoundMessage)
         refs.notFoundMessage.classList.add('not-found--visible');
       if (refs.loadMoreBtn) {
-        refs.loadMoreBtn.style.display = 'none';
+        refs.loadMoreBtn.classList.remove('hidden');
       }
     } else {
       renderProducts(data.products);
+      const totalRendered = currentPage * 12;
+      if (totalRendered < data.total) {
+        if (refs.loadMoreBtn) refs.loadMoreBtn.classList.remove('hidden');
+      }
       if (data.total <= currentPage * 12) {
         if (refs.loadMoreBtn) {
-          refs.loadMoreBtn.style.display = 'none';
+          refs.loadMoreBtn.classList.remove('hidden');
         }
       }
     }
@@ -222,12 +230,13 @@ export async function onLoadMoreClick() {
 
     const totalRendered = (currentPage - 1) * 12 + data.products.length;
     if (totalRendered >= data.total) {
-      if (refs.loadMoreBtn) refs.loadMoreBtn.style.display = 'none';
       iziToast.info({
         title: 'Info',
         message: "You've reached the end of the product list.",
         position: 'topRight',
       });
+    } else {
+      if (refs.loadMoreBtn) refs.loadMoreBtn.classList.remove('hidden');
     }
   } catch (error) {
     iziToast.error({
