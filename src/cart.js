@@ -12,8 +12,6 @@ import {
 import { loadFromStorage, saveToStorage } from './js/storage.js';
 import { STORAGE_KEYS } from './js/constants.js';
 import {
-  applyTheme,
-  toggleTheme,
   handleScroll,
   scrollToTop,
   showLoader,
@@ -100,7 +98,6 @@ function onBuyBtnClick() {
  * Ініціалізація сторінки кошика.
  */
 function initializeCartPage() {
-  applyTheme();
   updateCounters();
   loadCartProducts();
 
@@ -109,8 +106,6 @@ function initializeCartPage() {
   if (refs.modalActions)
     refs.modalActions.addEventListener('click', onModalActionsClick);
   if (refs.cartBuyBtn) refs.cartBuyBtn.addEventListener('click', onBuyBtnClick);
-  if (refs.themeSwitcher)
-    refs.themeSwitcher.addEventListener('click', toggleTheme);
   if (refs.scrollUpBtn) {
     window.addEventListener('scroll', handleScroll);
     refs.scrollUpBtn.addEventListener('click', scrollToTop);

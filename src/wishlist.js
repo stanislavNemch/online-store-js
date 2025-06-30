@@ -12,8 +12,6 @@ import {
 import { loadFromStorage } from './js/storage.js';
 import { STORAGE_KEYS } from './js/constants.js';
 import {
-  applyTheme,
-  toggleTheme,
   handleScroll,
   scrollToTop,
   showLoader,
@@ -49,7 +47,6 @@ async function loadWishlistProducts() {
 }
 
 function initializeWishlistPage() {
-  applyTheme();
   updateCounters();
   loadWishlistProducts();
 
@@ -57,8 +54,6 @@ function initializeWishlistPage() {
     refs.productsList.addEventListener('click', onProductClick);
   if (refs.modalActions)
     refs.modalActions.addEventListener('click', onModalActionsClick);
-  if (refs.themeSwitcher)
-    refs.themeSwitcher.addEventListener('click', toggleTheme);
   if (refs.scrollUpBtn) {
     window.addEventListener('scroll', handleScroll);
     refs.scrollUpBtn.addEventListener('click', scrollToTop);

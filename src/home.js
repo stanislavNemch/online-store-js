@@ -12,8 +12,6 @@ import {
   onLoadMoreClick,
 } from './js/handlers.js';
 import {
-  applyTheme,
-  toggleTheme,
   handleScroll,
   scrollToTop,
   showLoader,
@@ -23,7 +21,6 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 async function initializeHomePage() {
-  applyTheme();
   updateCounters();
   showLoader();
 
@@ -63,8 +60,6 @@ if (refs.searchForm)
   refs.searchForm.addEventListener('submit', onSearchFormSubmit);
 if (refs.loadMoreBtn)
   refs.loadMoreBtn.addEventListener('click', onLoadMoreClick);
-if (refs.themeSwitcher)
-  refs.themeSwitcher.addEventListener('click', toggleTheme);
 if (refs.scrollUpBtn) {
   window.addEventListener('scroll', handleScroll);
   refs.scrollUpBtn.addEventListener('click', scrollToTop);

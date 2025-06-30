@@ -1,7 +1,5 @@
 //Допоміжні функції
 import { refs } from './refs.js';
-import { saveToStorage, loadFromStorage } from './storage.js';
-import { STORAGE_KEYS } from './constants.js';
 
 // --- Лоадер ---
 export function showLoader() {
@@ -35,20 +33,4 @@ export function scrollToTop() {
     top: 0,
     behavior: 'smooth',
   });
-}
-
-// --- Переключение темы ---
-export function toggleTheme() {
-  document.body.classList.toggle('dark-theme');
-  const isDark = document.body.classList.contains('dark-theme');
-  saveToStorage(STORAGE_KEYS.THEME, isDark ? 'dark' : 'light');
-}
-
-export function applyTheme() {
-  const savedTheme = loadFromStorage(STORAGE_KEYS.THEME);
-  if (savedTheme === 'dark') {
-    document.body.classList.add('dark-theme');
-  } else {
-    document.body.classList.remove('dark-theme');
-  }
 }
