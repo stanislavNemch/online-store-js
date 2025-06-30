@@ -29,5 +29,5 @@ export const refs = {
   // --- Страница Cart ---
   cartTotalItems: document.querySelector('[data-count]'),
   cartTotalPrice: document.querySelector('[data-price]'),
-  cartBuyBtn: document.querySelector('.cart-summary__buy-btn'),
+  cartBuyBtn: document.querySelector('.cart-summary__btn'),
 };
