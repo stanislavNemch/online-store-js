@@ -79,6 +79,12 @@ function toggleProductInStorage(storageKey, productId, button, storageName) {
   }
   saveToStorage(storageKey, items);
   updateCounters();
+
+  // Створюємо та відправляємо кастомну подію на сторынках cart і wishlist
+  const event = new CustomEvent('storageUpdated', {
+    detail: { key: storageKey },
+  });
+  document.dispatchEvent(event);
 }
 
 export async function onProductClick(event) {

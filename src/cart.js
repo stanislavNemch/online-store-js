@@ -95,6 +95,18 @@ function onBuyBtnClick() {
 }
 
 /**
+ * Обробник кастомної події оновлення localStorage.
+ * @param {CustomEvent} event
+ */
+function handleStorageUpdate(event) {
+  // Перевіряємо, чи оновився саме кошик
+  if (event.detail.key === STORAGE_KEYS.CART) {
+    // Якщо так, перезавантажуємо список товарів на сторінці
+    loadCartProducts();
+  }
+}
+
+/**
  * Ініціалізація сторінки кошика.
  */
 function initializeCartPage() {
@@ -110,6 +122,9 @@ function initializeCartPage() {
     window.addEventListener('scroll', handleScroll);
     refs.scrollUpBtn.addEventListener('click', scrollToTop);
   }
+  // Встановлюємо слухача кастомної події storageUpdated
+  // для оновлення кошика при зміні localStorage
+  document.addEventListener('storageUpdated', handleStorageUpdate);
 }
 
 document.addEventListener('DOMContentLoaded', initializeCartPage);

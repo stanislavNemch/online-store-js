@@ -46,6 +46,17 @@ async function loadWishlistProducts() {
   }
 }
 
+/**
+ * Обробник кастомної події оновлення localStorage.
+ * @param {CustomEvent} event
+ */
+function handleStorageUpdate(event) {
+  // Перевіряємо, чи оновився саме список бажань
+  if (event.detail.key === STORAGE_KEYS.WISHLIST) {
+    loadWishlistProducts();
+  }
+}
+
 function initializeWishlistPage() {
   updateCounters();
   loadWishlistProducts();
@@ -58,6 +69,9 @@ function initializeWishlistPage() {
     window.addEventListener('scroll', handleScroll);
     refs.scrollUpBtn.addEventListener('click', scrollToTop);
   }
+  // Встановлюємо слухача кастомної події 'storageUpdated'
+  // для оновлення списку бажань при зміні localStorage
+  document.addEventListener('storageUpdated', handleStorageUpdate);
 }
 
 document.addEventListener('DOMContentLoaded', initializeWishlistPage);
