@@ -3,7 +3,6 @@ export const refs = {
   // --- Общие элементы ---
   loader: document.querySelector('.loader'),
   scrollUpBtn: document.querySelector('.scroll-up'),
-  themeSwitcher: document.querySelector('.theme-switcher'),
 
   // --- Хедер ---
   searchForm: document.querySelector('.search-form'),

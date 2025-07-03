@@ -93,3 +93,21 @@
   font-size: 0.9rem;
   text-align: center;
 }
+
+/* ================= CART PAGE: MOBILE ADAPTATION (FIXED) ================= */
+@media screen and (max-width: 767px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    order: -1;
+    width: 100%;
+    margin-bottom: 32px;
+  }
+
+  .cart-content {
+    width: 100%;
+  }
+}
