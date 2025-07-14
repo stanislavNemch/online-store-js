@@ -49,7 +49,7 @@ async function initializeHomePage() {
 
 document.addEventListener('DOMContentLoaded', initializeHomePage);
 
-// --- Слушатели событий ---
+// --- Слухачі подій ---
 if (refs.productsList)
   refs.productsList.addEventListener('click', onProductClick);
 if (refs.categoriesList)

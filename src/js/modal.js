@@ -29,7 +29,7 @@ export function closeModal() {
   refs.modal.removeEventListener('click', onBackdropClick);
 }
 
-// Глобальный слушатель для кнопки закрытия
+// Глобальний слухач для кнопки закриття
 if (refs.modalCloseBtn) {
   refs.modalCloseBtn.addEventListener('click', closeModal);
 }

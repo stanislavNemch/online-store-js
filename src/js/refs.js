@@ -1,6 +1,6 @@
 //Обʼєкт з посиланнями на ДОМ елементи
 export const refs = {
-  // --- Общие элементы ---
+  // --- Загальні елементи ---
   loader: document.querySelector('.loader'),
   scrollUpBtn: document.querySelector('.scroll-up'),
 
@@ -11,21 +11,21 @@ export const refs = {
   wishlistCount: document.querySelector('[data-wishlist-count]'),
   cartCount: document.querySelector('[data-cart-count]'),
 
-  // --- Основной контент (ul.products используется на всех страницах) ---
+  // --- Основний контент (ul.products використовується на всіх сторінках) ---
   productsList: document.querySelector('ul.products'),
 
-  // --- Страница Home ---
+  // --- Сторінка Home ---
   categoriesList: document.querySelector('ul.categories'),
   loadMoreBtn: document.querySelector('.load-more'),
   notFoundMessage: document.querySelector('.not-found'),
 
-  // --- Модальное окно ---
+  // --- Модальне окно ---
   modal: document.querySelector('.modal'),
   modalProduct: document.querySelector('.modal-product'),
   modalCloseBtn: document.querySelector('.modal__close-btn'),
   modalActions: document.querySelector('.modal-product__actions'),
 
-  // --- Страница Cart ---
+  // --- Сторінка Cart ---
   cartTotalItems: document.querySelector('[data-count]'),
   cartTotalPrice: document.querySelector('[data-price]'),
   cartBuyBtn: document.querySelector('.cart-summary__btn'),
