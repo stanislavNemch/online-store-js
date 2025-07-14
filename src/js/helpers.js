@@ -9,7 +9,7 @@ export function showLoader() {
   if (refs.loadMoreBtn) {
     refs.loadMoreBtn.classList.add('hidden');
   }
-  // Скрываем основной контент во время загрузки
+  // Приховуємо основний контент під час завантаження
   if (refs.categoriesList) {
     refs.categoriesList.classList.add('hidden');
   }
@@ -25,14 +25,13 @@ export function showLoaderForLoadMore() {
   if (refs.loadMoreBtn) {
     refs.loadMoreBtn.classList.add('hidden');
   }
-  // Не скрываем список продуктов при загрузке дополнительных
 }
 
 export function hideLoader() {
   if (refs.loader) {
     refs.loader.classList.add('hidden');
   }
-  // Показываем основной контент после загрузки
+  // Показуємо основний контент після завантаження
   if (refs.categoriesList) {
     refs.categoriesList.classList.remove('hidden');
   }
