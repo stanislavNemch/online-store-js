@@ -16,7 +16,7 @@ import {
 import { openModal } from './modal.js';
 import { saveToStorage, loadFromStorage } from './storage.js';
 import { STORAGE_KEYS } from './constants.js';
-import { showLoader, hideLoader } from './helpers.js';
+import { showLoader, showLoaderForLoadMore, hideLoader } from './helpers.js';
 
 let currentPage = 1;
 let currentCategory = 'All';
@@ -215,7 +215,7 @@ export async function onSearchFormSubmit(event) {
 
 export async function onLoadMoreClick() {
   currentPage += 1;
-  showLoader();
+  showLoaderForLoadMore();
   try {
     const data = currentSearchQuery
       ? await searchProducts(currentSearchQuery, currentPage)

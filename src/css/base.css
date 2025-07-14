@@ -15,3 +15,8 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+/* ================= UTILITY CLASSES ================= */
+.hidden {
+  display: none !important;
+}

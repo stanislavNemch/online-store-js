@@ -9,11 +9,35 @@ export function showLoader() {
   if (refs.loadMoreBtn) {
     refs.loadMoreBtn.classList.add('hidden');
   }
+  // Скрываем основной контент во время загрузки
+  if (refs.categoriesList) {
+    refs.categoriesList.classList.add('hidden');
+  }
+  if (refs.productsList) {
+    refs.productsList.classList.add('hidden');
+  }
+}
+
+export function showLoaderForLoadMore() {
+  if (refs.loader) {
+    refs.loader.classList.remove('hidden');
+  }
+  if (refs.loadMoreBtn) {
+    refs.loadMoreBtn.classList.add('hidden');
+  }
+  // Не скрываем список продуктов при загрузке дополнительных
 }
 
 export function hideLoader() {
   if (refs.loader) {
     refs.loader.classList.add('hidden');
+  }
+  // Показываем основной контент после загрузки
+  if (refs.categoriesList) {
+    refs.categoriesList.classList.remove('hidden');
+  }
+  if (refs.productsList) {
+    refs.productsList.classList.remove('hidden');
   }
 }
 
